@@ -30,8 +30,8 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Doc example')
-    .setDescription('The doc API description')
+    .setTitle('Cars API')
+    .setDescription('An API for testing nestjs development')
     .setVersion('1.0')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
