@@ -25,9 +25,9 @@ export class CreateCarService {
     try {
       this.logManager.log('Starting command');
 
-      const cars = await this.carRepository.create(model);
+      await this.carRepository.create(model);
 
-      this.logManager.log('Success to run command', { cars });
+      this.logManager.log('Success to run command', { model });
 
       return this.onSuccess();
     } catch (error: unknown) {
