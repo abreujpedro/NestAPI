@@ -23,7 +23,7 @@ export class CreateCarService {
 
   async getCar(model?: string): Promise<void> {
     try {
-      this.logManager.log('Starting command');
+      this.logManager.log('Starting command', { model });
 
       await this.carRepository.create(model);
 
