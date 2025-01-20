@@ -40,7 +40,9 @@ async function bootstrap() {
   const validationPipe = generateValidationPipe();
 
   app.useGlobalPipes(validationPipe);
+  const port = process.env.PORT ?? 3000;
+  await app.listen(port);
 
-  await app.listen(process.env.PORT ?? 3000);
+  console.log(`Server is running on port ${port}`);
 }
 bootstrap();
