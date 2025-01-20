@@ -23,15 +23,21 @@ export class GetCarService {
 
   async getCar(model?: string): Promise<void> {
     try {
-      this.logManager.log('Starting command');
+      this.logManager.log('Starting command', { modelParams: model });
 
       const cars = await this.carRepository.get(model);
 
-      this.logManager.log('Success to run command', { cars });
+      this.logManager.log('Success to run command', {
+        cars,
+        modelParams: model,
+      });
 
       return this.onSuccess({ cars });
     } catch (error: unknown) {
-      this.logManager.error('Error to run command', { model, error });
+      this.logManager.error('Error to run command', {
+        modelParams: model,
+        error,
+      });
 
       return this.onError();
     }
