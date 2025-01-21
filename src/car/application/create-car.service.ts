@@ -1,8 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+
 import { CreateCarResponses } from 'src/car/domain/interfaces/create-car-interfaces';
 import { CarRepository } from 'src/car/domain/repositories/car-repository';
 import { LogManager } from 'src/common/domain/services/logger-service';
-
 import { noop } from 'src/common/domain/utils/noop';
 
 @Injectable()
@@ -10,6 +11,7 @@ export class CreateCarService {
   constructor(
     @Inject(LogManager) private readonly logManager: LogManager,
     @Inject(CarRepository) private readonly carRepository: CarRepository,
+    private eventEmitter: EventEmitter2,
   ) {
     this.logManager.setContext(this.constructor.name);
   }
@@ -26,6 +28,10 @@ export class CreateCarService {
       this.logManager.log('Starting command', { model });
 
       await this.carRepository.create(model);
+
+      this.logManager.log('Success to create car', { model });
+
+      this.eventEmitter.emit('car.created', { model });
 
       this.logManager.log('Success to run command', { model });
 
