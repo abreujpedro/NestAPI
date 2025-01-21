@@ -70,7 +70,7 @@ export class CarController {
 
     this.createCarService.onError = this.onCreateCarError(res);
 
-    return this.createCarService.getCar(body.model);
+    return this.createCarService.createCar(body.model);
   }
 
   private onGetCarsSuccess(

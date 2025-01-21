@@ -23,7 +23,7 @@ export class CreateCarService {
   public onError: (response: CreateCarResponses.ErrorResponse) => Promise<any> =
     noop;
 
-  async getCar(model?: string): Promise<void> {
+  async createCar(model?: string): Promise<void> {
     try {
       this.logManager.log('Starting command', { model });
 
