@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { CarEntity } from 'src/car/domain/entity/car-entity';
 
 import { CreateCarResponses } from 'src/car/domain/interfaces/create-car-interfaces';
 import { CarRepository } from 'src/car/domain/repositories/car-repository';
@@ -27,13 +28,15 @@ export class CreateCarService {
     try {
       this.logManager.log('Starting command', { model });
 
-      await this.carRepository.create(model);
+      const car = new CarEntity({ modelName: model });
 
-      this.logManager.log('Success to create car', { model });
+      await this.carRepository.create(car.getModelName());
 
-      this.eventEmitter.emit('car.created', { model });
+      this.logManager.log('Success to create car', { car });
 
-      this.logManager.log('Success to run command', { model });
+      this.eventEmitter.emit('car.created', car);
+
+      this.logManager.log('Success to run command', { car });
 
       return this.onSuccess();
     } catch (error: unknown) {

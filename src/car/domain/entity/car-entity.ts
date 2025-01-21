@@ -1,7 +1,7 @@
 import { NonFunctionProperties } from 'src/common/domain/utils/non-function-properties';
 
 export class CarEntity {
-  private readonly id: number;
+  private readonly id?: number;
 
   private readonly modelName: string;
 
